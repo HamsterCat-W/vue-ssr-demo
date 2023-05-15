@@ -16,4 +16,27 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
 # vue-ssr-demo
+
+#### 使用
+
+1、克隆
+
+```bash
+git clone https://github.com/HamsterCat-W/vue-ssr-demo.git
+```
+
+2、依赖安装
+
+```bash
+cd SSR
+
+pnpm i
+```
+
+3、本地启动
+
+```bash
+pnpm dev
+```
