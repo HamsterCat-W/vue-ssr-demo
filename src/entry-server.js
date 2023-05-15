@@ -1,9 +1,19 @@
 import { basename } from 'node:path'
 import { renderToString } from '@vue/server-renderer'
 import { createApp } from './main'
-
-export async function render(url, manifest) {
+import { createI18n } from './locale'
+export async function render(
+  url,
+  manifest,
+  language = 'zh',
+  isPreRender = false
+) {
   const { app, router } = createApp()
+
+  if (isPreRender) {
+    const i18n = createI18n(language)
+    app.use(i18n)
+  }
 
   // set the router to the desired URL before rendering
   await router.push(url)

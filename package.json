@@ -6,19 +6,22 @@
   "scripts": {
     "dev": "vue-tsc && nodemon server",
     "prod": "vue-tsc && cross-env NODE_ENV=production node server",
-    "build": "vite build --outDir dist/static && npm run build:client && npm run build:server && npm run build:prerender",
+    "build": "cross-env NODE_ENV=production && vite build --outDir dist/static &&npm run build:client && npm run build:server && npm run build:prerender",
     "dev:client": "vite",
     "build:client": "vue-tsc && vite build --outDir dist/client --ssrManifest",
     "build:server": "vue-tsc && vite build --outDir dist/server --ssr src/entry-server.js",
-    "build:prerender":"node prerender"
+    "build:prerender": "node prerender"
   },
   "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@vue/server-renderer": "^3.2.47",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
+    "mkdirp": "^3.0.1",
     "serve-static": "^1.15.0",
     "vue": "^3.2.47",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

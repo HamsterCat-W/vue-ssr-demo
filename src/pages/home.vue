@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
 
 <template>
   <div class="test">
-    <h3>这是一个测试</h3>
+    <h3>{{ t('test') }}</h3>
   </div>
 </template>
 

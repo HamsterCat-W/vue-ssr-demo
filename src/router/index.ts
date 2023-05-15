@@ -17,6 +17,18 @@ const routes = [
     path: '/detail',
     component: () => import('../pages/detail.vue'),
   },
+  {
+    path: '/en',
+    component: () => import('../pages/home.vue'),
+  },
+  {
+    path: '/en/list',
+    component: () => import('../pages/list.vue'),
+  },
+  {
+    path: '/en/detail',
+    component: () => import('../pages/detail.vue'),
+  },
 ]
 
 const router = _createRouter({

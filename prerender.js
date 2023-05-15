@@ -2,6 +2,9 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { mkdirp } from 'mkdirp'
+
+const languageList = ['zh', 'en']
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -30,19 +33,32 @@ console.log(
   routersToPreRender
 )
 ;(async () => {
-  // pre-render each route...
-  for (const url of routersToPreRender) {
-    const [appHtml, preloadLinks] = await render(url, manifest)
+  for (const lang of languageList) {
+    for (let url of routersToPreRender) {
+      if (lang === 'en') {
+        if (url === '/') {
+          url = `${url}en`
+        } else {
+          url = `/en${url}`
+        }
+      }
+      const [appHtml, preloadLinks] = await render(url, manifest, lang, true)
 
-    const html = template
-      .replace(`<!--preload-links-->`, preloadLinks)
-      .replace(`<!--app-html-->`, appHtml)
+      const html = template
+        .replace(`<!--preload-links-->`, preloadLinks)
+        .replace(`<!--app-html-->`, appHtml)
+      const filePath = `dist/static${
+        url === '/'
+          ? '/index'
+          : url === '/en'
+          ? '/en/index'
+          : url.replace('/products', '')
+      }.html`
 
-    const filePath = `dist/static${url === '/' ? '/index' : url}.html`
-    fs.writeFileSync(getAbsoluteFilePath(filePath), html)
-    console.log('pre-rendered:', filePath)
+      mkdirp('dist/static/en').then(() => {
+        fs.writeFileSync(getAbsoluteFilePath(filePath), html)
+        console.log('pre-rendered:', filePath)
+      })
+    }
   }
-
-  // done, delete ssr manifest
-  //   fs.unlinkSync(getAbsoluteFilePath('dist/static/ssr-manifest.json'))
 })()
