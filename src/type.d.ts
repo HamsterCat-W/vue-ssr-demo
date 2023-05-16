@@ -1,4 +1,4 @@
 declare module '*.yaml' {
-  const content: any
+  const content: { [key: string]: any }
   export default content
 }
